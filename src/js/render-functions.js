@@ -4,7 +4,14 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const galleryElement = document.getElementById('gallery');
-let lightbox;
+let lightbox = new SimpleLightbox('[data-lightbox="gallery"]', {
+  captions: true,
+  captionSelector: 'img',
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
 
 export function renderImages(images) {
   const markup = images
@@ -34,19 +41,7 @@ export function renderImages(images) {
     .join('');
 
   galleryElement.insertAdjacentHTML('beforeend', markup);
-
-  if (lightbox) {
-    lightbox.refresh();
-  } else {
-    lightbox = new SimpleLightbox('[data-lightbox="gallery"]', {
-      captions: true,
-      captionSelector: 'img',
-      captionType: 'attr',
-      captionsData: 'alt',
-      captionPosition: 'bottom',
-      captionDelay: 250,
-    });
-  }
+  lightbox.refresh();
 }
 
 export function showNoResultsMessage() {
